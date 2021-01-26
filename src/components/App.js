@@ -3,75 +3,75 @@ import ToDoList from './ToDoList'
 import NavBar from './NavBar'
 import AddTask from './AddTask'
 import { BrowserRouter , Switch, Route} from 'react-router-dom'
-import initialData from '../initialData'
-import uniqid from 'uniqid'
-import Fetching from './Fetching'
+// import initialData from '../initialData'
+// import uniqid from 'uniqid'
+// import Fetching from './Fetching'
 //import uniqid from 'uniqid';
 
 
 
 class App  extends Component {
 
-  state = {
-    fetching: true,
-    tasks: []
-  }
+  // state = {
+  //   fetching: true,
+  //   tasks: []
+  // }
 
-  componentDidMount = () => {
-    let delay = Math.floor(Math.random() * 5000)
-    console.log(delay)
-    setTimeout(() => {
-      this.setState({
-        fetching: false,
-        tasks : initialData
-      })
-    }, delay)
-  }
+  // componentDidMount = () => {
+  //   let delay = Math.floor(Math.random() * 5000)
+  //   console.log(delay)
+  //   setTimeout(() => {
+  //     this.setState({
+  //       fetching: false,
+  //       tasks : initialData
+  //     })
+  //   }, delay)
+  // }
 
 
 
-  onAddTask = (newTaskName) => {
-    let newTask = {
-      id: uniqid(),
-      name: newTaskName,
-      completed: false
-    }
-    this.setState(prevState => ({
-      tasks: [...prevState.tasks, newTask]
-    }))
-  }
+  // onAddTask = (newTaskName) => {
+  //   let newTask = {
+  //     id: uniqid(),
+  //     name: newTaskName,
+  //     completed: false
+  //   }
+  //   this.setState(prevState => ({
+  //     tasks: [...prevState.tasks, newTask]
+  //   }))
+  // }
 
-  onToggleCompleted = (taskId) => {
-    //get the task to modify
-    let updTask = this.state.tasks.find(task => task.id === taskId)
-    //toggle the value of completed in the task
-    updTask.completed = !updTask.completed
-    //put the new version of the task in the state
-    this.setState(prevState => (
-      prevState.tasks.map(task => {
-        return task.id === taskId ? updTask : task
-      })
-    ))
-  }
+  // onToggleCompleted = (taskId) => {
+  //   //get the task to modify
+  //   let updTask = this.state.tasks.find(task => task.id === taskId)
+  //   //toggle the value of completed in the task
+  //   updTask.completed = !updTask.completed
+  //   //put the new version of the task in the state
+  //   this.setState(prevState => (
+  //     prevState.tasks.map(task => {
+  //       return task.id === taskId ? updTask : task
+  //     })
+  //   ))
+  // }
 
-  onDeleteCompleted = () => {
-    this.setState(prevState => {
-      let newState = prevState.tasks.filter(task => !task.completed)
-      return {
-        tasks: newState
-      }
-    })
-  }
+  // onDeleteCompleted = () => {
+  //   this.setState(prevState => {
+  //     let newState = prevState.tasks.filter(task => !task.completed)
+  //     return {
+  //       tasks: newState
+  //     }
+  //   })
+  // }
 
   render(){
     return(
       <section id="toDo">
-        {this.state.fetching? <Fetching /> : null}
+        {/* {this.state.fetching? <Fetching /> : null} */}
         <BrowserRouter>
           <>
             <Switch>
-                <Route path="/add-task" render={(props) => <AddTask {...props} onAddTask={this.onAddTask} />} />
-                <Route path="/:filter?" render={(props) => <ToDoList {...props} tasks={this.state.tasks} onToggleCompleted={this.onToggleCompleted} />} />
+                <Route path="/add-task" component={AddTask} />
+                <Route path="/:filter?" component={ToDoList} />
             </Switch>
             <NavBar onDeleteCompleted={this.onDeleteCompleted}/>
           </>

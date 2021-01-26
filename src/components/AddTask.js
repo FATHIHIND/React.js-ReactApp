@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import uniqid from 'uniqid';
+import { addTask } from '../actions';
 
 
 class AddTask extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        this.props.onAddTask(this.newTask.value)
+        let item = {
+            id: uniqid(),
+            name: this.newTask.value,
+            completed: false,
+        }
+        this.props.addTask(item)
         this.props.history.push('/')
     }
 
@@ -27,7 +35,13 @@ class AddTask extends Component {
     }//end render
 }
 
-
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addTask: (item) => {
+            dispatch(addTask(item))
+        },
+    }
+}
     
 
-export default AddTask
+export default connect(null, mapDispatchToProps)(AddTask);
